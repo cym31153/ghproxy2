@@ -46,6 +46,8 @@ github release、archive以及项目文件的加速项目，支持clone，有Clo
 
 - gist：https://gist.githubusercontent.com/cielpy/351557e6e465c12986419ac5a4dd2568/raw/cmd.py
 
+- api接口：https://api.github.com/repos/octocat/octocat.github.io
+
 ## cf worker版本部署
 
 首页：https://workers.cloudflare.com
