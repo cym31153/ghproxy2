@@ -48,6 +48,7 @@ exp2 = re.compile(r'^(?:https?://)?github\.com/(?P<author>.+?)/(?P<repo>.+?)/(?:
 exp3 = re.compile(r'^(?:https?://)?github\.com/(?P<author>.+?)/(?P<repo>.+?)/(?:info|git-).*$')
 exp4 = re.compile(r'^(?:https?://)?raw\.(?:githubusercontent|github)\.com/(?P<author>.+?)/(?P<repo>.+?)/.+?/.+$')
 exp5 = re.compile(r'^(?:https?://)?gist\.(?:githubusercontent|github)\.com/(?P<author>.+?)/.+?/.+$')
+exp6 = re.compile(r'^(?:https?://)?api\.github\.com/.*$')
 
 requests.sessions.default_headers = lambda: CaseInsensitiveDict()
 
@@ -107,14 +108,14 @@ def iter_content(self, chunk_size=1, decode_unicode=False):
 
 
 def check_url(u):
-    for exp in (exp1, exp2, exp3, exp4, exp5):
+    for exp in (exp1, exp2, exp3, exp4, exp5, exp6):
         m = exp.match(u)
         if m:
             return m
     return False
 
 
-@app.route('/<path:u>', methods=['GET', 'POST'])
+@app.route('/<path:u>', methods=['GET', 'POST', 'PATCH', 'DELETE'])
 def handler(u):
     u = u if u.startswith('http') else 'https://' + u
     if u.rfind('://', 3, 9) == -1:
